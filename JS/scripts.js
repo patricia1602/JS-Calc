@@ -1,6 +1,6 @@
-const previousOperationText = document.querySelector("#previous-operation")
-const currentOperationText = document.querySelector("#current-operation")
-const buttons = document.querySelectorAll("#buttons-container button")
+const previousOperationText = document.querySelector("#previous-operation");
+const currentOperationText = document.querySelector("#current-operation");
+const buttons = document.querySelectorAll("#buttons-container button");
 
 class Calculator {
     constructor(previousOperationText, currentOperationText) {
@@ -33,25 +33,25 @@ class Calculator {
         }
 
         //Get current and previous value(Obter valor atual e anterior)
-        let operationValue
+        let operationValue;
         const previous = +this.previousOperationText.innerText.split(" ")[0];
         const current = +this.currentOperationText.innerText;
 
         switch (operation) {
             case "+":
-                operationValue = previous + current
+                operationValue = previous + current;
                 this.updateScreen(operationValue, operation, current, previous);
                 break;
             case "-":
-                operationValue = previous - current
+                operationValue = previous - current;
                 this.updateScreen(operationValue, operation, current, previous);
                 break;
             case "/":
-                operationValue = previous / current
+                operationValue = previous / current;
                 this.updateScreen(operationValue, operation, current, previous);
                 break;
             case "*":
-                operationValue = previous * current
+                operationValue = previous * current;
                 this.updateScreen(operationValue, operation, current, previous);
                 break;
             case "DEL":
@@ -61,7 +61,7 @@ class Calculator {
                 this.processClearCurrentOperator();
                 break;
             case "C":
-                this.processClearOperator();
+                this.processClearAllOperator();
                 break;
             case "=":
                 this.processEqualOperator();
@@ -98,12 +98,12 @@ class Calculator {
     changeOperation(operation) {
         const mathOperations = ["*", "-", "+", "/"];
 
-        if (mathOperations.includes(operation)) {
+        if (!mathOperations.includes(operation)) {
             return;
         }
 
         this.previousOperationText.innerText =
-            this.previousOperationText.slice(0, -1) + operation;
+            this.previousOperationText.innerText.slice(0, -1) + operation;
     }
 
     //Delete a digit(Excluir um digito)
@@ -113,12 +113,12 @@ class Calculator {
     }
 
     //Clear current operation(Limpar operação atual)
-    processClearOperator() {
+    processClearCurrentOperator() {
         this.currentOperationText.innerText = "";
     }
 
     //Clear all operations(Limpar todas as operações)
-    processClearOperator() {
+    processClearAllOperator() {
         this.currentOperationText.innerText = "";
         this.previousOperationText.innerText = "";
     }
@@ -138,6 +138,7 @@ buttons.forEach((btn) => {
         const value = e.target.innerText;
 
         if (+value >= 0 || value === ".") {
+            console.log(value);
             calc.addDigit(value);
         } else {
             calc.processOperation(value);
